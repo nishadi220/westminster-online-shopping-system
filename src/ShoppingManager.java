@@ -1,6 +1,6 @@
 public interface ShoppingManager {
 
-    void add_product () ;
+    void add_product (Product product) ;
 
     void delete_product();
 
