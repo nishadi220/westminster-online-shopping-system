@@ -49,12 +49,34 @@ public class WestminsterShoppingManager implements ShoppingManager {
                 list_of_products.add(object);
             }
         }
-
     }
 
     @Override
     public void delete_product(){
-        System.out.println("2");
+        boolean state = true;
+        Scanner sc = new Scanner(System.in);
+
+        while (state){
+            System.out.println("Enter Product ID: ");
+            String product_ID = sc.next();
+
+            for (Product item : list_of_products){
+                if (item.getProduct_ID().equals(product_ID)){
+                    System.out.println();
+                    System.out.println("Product Deleted.");
+                    state = false;
+                    break;
+                }
+            }
+
+            if (state){
+                System.out.println("Product ID invalid. Try Again.");
+            }
+        }
+
+
+
+
     }
 
     @Override
