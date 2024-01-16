@@ -1,4 +1,6 @@
-public class Electronics extends Product{
+import java.io.Serializable;
+
+public class Electronics extends Product implements Serializable {
 
     private String product_brand;
     private int product_warranty;

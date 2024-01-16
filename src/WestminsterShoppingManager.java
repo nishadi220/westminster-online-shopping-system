@@ -1,3 +1,6 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -75,7 +78,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
 
                         do {
                             delete = validInput(errorHandlerString("Do you want to delete the ProductID you entered? (Y/N)        : "));
-                        }while (delete != null);
+                        }while (!"Y".equalsIgnoreCase(delete) && !"N".equalsIgnoreCase(delete));
 
                         if ("Y".equalsIgnoreCase(delete)) {
                             System.out.println("Product ID              : " + item.getProduct_ID());
@@ -117,9 +120,8 @@ public class WestminsterShoppingManager implements ShoppingManager {
                     System.out.println("Product ID invalid. Try Again.");
                 }
             }
-            Main.display_menu();
-
         }
+        Main.display_menu();
     }
 
     @Override
@@ -151,12 +153,31 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
     @Override
-    public void save_products(){
-        System.out.println("4");
+    public void save_products() {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(Data_File);
+             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
+
+            objectOutputStream.writeObject(list_of_products);
+            System.out.println("Products saved to file.");
+
+        } catch (IOException e) {
+            System.out.println("Error saving products to file: " + e.getMessage());
+        }
+        Main.display_menu();
     }
+
     @Override
-    public void load_products(){
-        System.out.println("4");
+    public void load_products() {
+        try (ObjectInputStream in = new ObjectInputStream(Files.newInputStream(Path.of(Data_File)))) {
+            list_of_products = (ArrayList<Product>) in.readObject();
+
+            System.out.println("Products loaded from file.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading products from file: " + e.getMessage());
+            e.printStackTrace(); // Add this line for debugging
+        }
+        Main.display_menu();
     }
 
     public String errorHandlerString(String input){
@@ -199,15 +220,11 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
     public String validInput(String input){
-        while (true){
-            if (input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("N")){
-                return input;
-            }
-            else {
-                System.out.println("Enter Y or N. Try Again!!");
-                return null;
-            }
+        Scanner sc = new Scanner(System.in);
+        while (!input.equalsIgnoreCase("Y") && !input.equalsIgnoreCase("N")) {
+            System.out.println("Enter Y or N. Try Again!!");
+            input = sc.next();
         }
+        return input;
     }
-
 }
