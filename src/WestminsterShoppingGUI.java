@@ -65,12 +65,12 @@ ArrayList<java.lang.Object[]> data = new ArrayList<java.lang.Object[]>();
         productsTable = new JTable(tableModel);
 
         // Set column widths
-        int[] columnWidths = {100, 150, 100, 120, 150}; // Adjust these values as needed
+//        int[] columnWidths = {100, 150, 100, 120, 150}; // Adjust these values as needed
 
-        for (int i = 0; i < columnWidths.length; i++) {
-            TableColumn column = productsTable.getColumnModel().getColumn(i);
-            column.setPreferredWidth(columnWidths[i]);
-        }
+//        for (int i = 0; i < columnWidths.length; i++) {
+//            TableColumn column = productsTable.getColumnModel().getColumn(i);
+//            column.setPreferredWidth(columnWidths[i]);
+//        }
 
 //        product details to the center of cell
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

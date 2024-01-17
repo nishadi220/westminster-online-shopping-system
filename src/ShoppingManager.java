@@ -8,5 +8,5 @@ public interface ShoppingManager {
 
     void save_products();
 
-    void load_products();
+
 }

@@ -32,6 +32,7 @@ public class Main {
                 break;
             case 5:
                 manager.load_products();
+                Main.display_menu();
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");

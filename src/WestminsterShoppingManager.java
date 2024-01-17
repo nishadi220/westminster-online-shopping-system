@@ -17,7 +17,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         for (int i = 0; i < no_of_products; i++) {
             boolean var = true ;
 
-            if ( list_of_products.size() <= 50 ){
+            if ( list_of_products.size() <= maximum ){
                 String product_ID = errorHandlerString("Enter Product ID                                              : ");
                 String product_name = errorHandlerString("Enter Product name                                            : ");
                 int no_available_products  = errorHandlerInt("Enter Number of available items                               : ");
@@ -63,9 +63,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
     @Override
     public void delete_product(){
         int no_of_products = errorHandlerInt("How many products do you wish to delete                       : ");
-        boolean state = true;
         String delete;
-        Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < no_of_products; i++) {
             boolean var = true;
@@ -167,8 +165,8 @@ public class WestminsterShoppingManager implements ShoppingManager {
         Main.display_menu();
     }
 
-    @Override
-    public void load_products() {
+
+    static public void load_products() {
         try (ObjectInputStream in = new ObjectInputStream(Files.newInputStream(Path.of(Data_File)))) {
             list_of_products = (ArrayList<Product>) in.readObject();
 
@@ -177,7 +175,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
             System.out.println("Error loading products from file: " + e.getMessage());
             e.printStackTrace(); // Add this line for debugging
         }
-        Main.display_menu();
+//        Main.display_menu();
     }
 
     public String errorHandlerString(String input){
