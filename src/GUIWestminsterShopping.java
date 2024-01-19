@@ -14,11 +14,12 @@ public class GUIWestminsterShopping {
     static Object price;
     static Object information;
 
-    static public void ProductDetails(Object productId, JTable productsTable){
+    static public JPanel ProductDetails(Object productId, JTable productsTable){
+        JPanel bottomPanel = new JPanel(new GridLayout(0, 1));
+
         for (Product item : WestminsterShoppingManager.list_of_products){
             if (productId == item.getProduct_ID()){
                 if (item instanceof Electronics){
-                    JPanel bottomPanel = new JPanel(new GridLayout(0, 1));
                     JLabel SelectedProductLabel = new JLabel("Select Product - Details ");
                     JLabel ProductIDLabel = new JLabel("Product ID : " + item.getProduct_ID());
                     JLabel CategoryLabel = new JLabel("Category : Electronics");
@@ -36,7 +37,6 @@ public class GUIWestminsterShopping {
                     bottomPanel.add(ItemsAvailableLabel);
 
                 } else if (item instanceof Clothing) {
-                    JPanel bottomPanel = new JPanel(new GridLayout(0, 1));
                     JLabel SelectedProductLabel = new JLabel("Select Product - Details ");
                     JLabel ProductIDLabel = new JLabel("Product ID : " + item.getProduct_ID());
                     JLabel CategoryLabel = new JLabel("Category : Clothing ");
@@ -52,9 +52,11 @@ public class GUIWestminsterShopping {
                     bottomPanel.add(SizeLabel);
                     bottomPanel.add(ColourLabel);
                     bottomPanel.add(ItemsAvailableLabel);
+
                 }
             }
         }
+        return bottomPanel;
     }
 
 
@@ -94,6 +96,11 @@ public class GUIWestminsterShopping {
         topPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 10, 50));
         topPanel.setPreferredSize(new Dimension(800, 400));
 
+        JPanel bottomPanel = new JPanel(new GridLayout(0, 1));
+
+        JPanel addToCartPanel = new JPanel(new BorderLayout());
+        addToCartPanel.add(addToCartButton, BorderLayout.SOUTH);
+
         productsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -101,18 +108,26 @@ public class GUIWestminsterShopping {
                     int selectedRow = productsTable.getSelectedRow();
                     if (selectedRow != -1) {
                         Object productId = productsTable.getValueAt(selectedRow, 0);
-                        GUIWestminsterShopping.ProductDetails(productId, productsTable);
+                        JPanel updatedPanel = GUIWestminsterShopping.ProductDetails(productId, productsTable);
+                        bottomPanel.removeAll();
+                        bottomPanel.add(updatedPanel);
+                        bottomPanel.add(addToCartPanel);
+
+                        bottomPanel.revalidate();
+                        bottomPanel.repaint();
                     }
                 }
             }
         });
 
-        JPanel addToCartPanel = new JPanel(new BorderLayout());
-        addToCartPanel.add(addToCartButton, BorderLayout.SOUTH);
+        addToCartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(frame, "Product added to shopping cart!",
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
-        JPanel bottomPanel = new JPanel(new GridLayout(0, 1));
-
-        bottomPanel.add(addToCartPanel);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 10, 50));
         bottomPanel.setPreferredSize(new Dimension(800, 300));
 
