@@ -37,4 +37,8 @@ public class User {
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
     }
+
+    public static void setHistory(Product product) {
+        //TODO : create functionality
+    }
 }
