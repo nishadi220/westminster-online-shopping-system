@@ -54,6 +54,21 @@ ArrayList<java.lang.Object[]> data = new ArrayList<java.lang.Object[]>();
 //            tableData[i][4] = Information;
 //        }
 
+        productsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                int numOfItems = (int) productsTable.getModel().getValueAt(row, 5);
+
+                if (numOfItems < 3) {
+                    cellComponent.setBackground(Color.RED);
+                } else {
+                    cellComponent.setBackground(Color.WHITE);// Set the background color to a different color
+                }
+                return cellComponent;
+            }
+        });
+
 
         // Column names
         String[] columnNames = {"Product ID", "Name", "Category", "Price(£)", "Information"};

@@ -1,10 +1,13 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -73,6 +76,12 @@ public class GUIWestminsterShopping {
 
         for (String columnName : columnNames) {
             model.addColumn(columnName);
+        }
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -153,6 +162,8 @@ public class GUIWestminsterShopping {
             tableDataList.add(rowData);
         }
 
+        Collections.sort(tableDataList, Comparator.comparing(row -> (String) row[1]));
+
         model.setRowCount(0);
         for (Object[] rowData : tableDataList) {
             model.addRow(rowData);
@@ -227,6 +238,13 @@ public class GUIWestminsterShopping {
         for (String columnName : columnNames) {
             cartTableModel.addColumn(columnName);
         }
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < cartTable.getColumnCount(); i++) {
+            cartTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
         System.out.println(cartItems);
         for (Product item : cartItems){
             String[] rowData = { item.getProduct_name() , String.valueOf(item.getNo_available_products()) , String.valueOf(item.getPrice()) };
@@ -236,11 +254,13 @@ public class GUIWestminsterShopping {
         cartPanel.add(scrollPane, BorderLayout.CENTER);
         double totalPrice = calculatetotalPrice();
 
+        double finalPrice = totalPrice - threeItemsDiscount(totalPrice);
+
         JPanel billSummary = new JPanel(new GridLayout(4, 1));
         JLabel totalLabel = new JLabel("Total : " + totalPrice);
         JLabel firstPurchaseLabel = new JLabel("First Purchase Discount (10 %) : ");
-        JLabel threeProductLabel = new JLabel("Three items in the same Category Discount (20 %) : ");
-        JLabel finalTotalLabel = new JLabel("Final Total : " + totalPrice);
+        JLabel threeProductLabel = new JLabel("Three items in the same Category Discount (20 %) : " + threeItemsDiscount(totalPrice));
+        JLabel finalTotalLabel = new JLabel("Final Total : " + finalPrice);
 
         billSummary.add(totalLabel);
         billSummary.add(firstPurchaseLabel);
@@ -264,6 +284,29 @@ public class GUIWestminsterShopping {
             totalPrice += product.getPrice();
         }
         return totalPrice;
+    }
+
+    public double threeItemsDiscount(double totalPrice){
+        int electronicsNUM = 0;
+        int clothingNUM = 0;
+        double discount = 0.0;
+
+        for (Product product : cartItems){
+            if (product instanceof Electronics){
+                electronicsNUM++;
+            }else if (product instanceof Clothing){
+                clothingNUM++;
+            }
+        }
+
+        if (electronicsNUM >= 3){
+            discount = discount + (totalPrice * (0.2));
+        }
+
+        if (clothingNUM >= 3){
+            discount = discount + (totalPrice * (0.2));
+        }
+        return discount;
     }
 
     public static void main(String[] args) {
