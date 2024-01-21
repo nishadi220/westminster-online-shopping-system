@@ -238,6 +238,11 @@ ArrayList<java.lang.Object[]> data = new ArrayList<java.lang.Object[]>();
     }
 
     public static void main(String[] args) {
+
+
+        WestminsterShoppingGUI gui = new WestminsterShoppingGUI();
+
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

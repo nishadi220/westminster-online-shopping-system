@@ -50,14 +50,13 @@ public class WestminsterShoppingManager implements ShoppingManager {
                 System.out.println();
                 System.out.println("Product successfully added !");
                 System.out.println(".............................................................");
-                System.out.println();
             }
             else {
                 System.out.println("Product capacity out of range. Remove existing products to add new products !");
-                System.out.println();
             }
+            System.out.println();
         }
-        Main.display_menu();
+        Main.ManagerMenu();
     }
 
     @Override
@@ -119,7 +118,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
                 }
             }
         }
-        Main.display_menu();
+        Main.ManagerMenu();
     }
 
     @Override
@@ -147,7 +146,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
             System.out.println("------------------------------------------------");
             System.out.println();
         }
-        Main.display_menu();
+        Main.ManagerMenu();
     }
 
     @Override
@@ -162,7 +161,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         } catch (IOException e) {
             System.out.println("Error saving products to file: " + e.getMessage());
         }
-        Main.display_menu();
+        Main.ManagerMenu();
     }
 
 

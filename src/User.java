@@ -1,11 +1,17 @@
+import java.util.ArrayList;
+
 public class User {
 
     private String username ;
     private String password ;
+    private ArrayList<Product> products = new ArrayList<Product>();
 
-    public User(String username, String password) {
+    static public ArrayList<User> users = new ArrayList<User>();
+
+    public User(String username, String password, ArrayList<Product> products) {
         this.username = username;
         this.password = password;
+        this.products = products;
     }
 
     public String getUsername() {
@@ -22,5 +28,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 }

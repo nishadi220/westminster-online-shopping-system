@@ -59,11 +59,8 @@ public class GUIWestminsterShopping {
         return bottomPanel;
     }
 
-
-    public static void main(String[] args) {
-        WestminsterShoppingManager.load_products();
-
-        JFrame frame = new JFrame("Westminster Online Shopping System");
+    public static void productInfo(){
+        JFrame ProductInfoFrame = new JFrame("Westminster Online Shopping System");
 
         JComboBox<String> categoryComboBox = new JComboBox<>(new String[]{"All", "Electronics", "Clothes"});
         JButton shoppingCartButton = new JButton("Shopping Cart");
@@ -123,7 +120,7 @@ public class GUIWestminsterShopping {
         addToCartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Product added to shopping cart!",
+                JOptionPane.showMessageDialog(ProductInfoFrame, "Product added to shopping cart!",
                         "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         });
@@ -131,8 +128,8 @@ public class GUIWestminsterShopping {
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 10, 50));
         bottomPanel.setPreferredSize(new Dimension(800, 300));
 
-        frame.add(topPanel, BorderLayout.NORTH);
-        frame.add(bottomPanel, BorderLayout.SOUTH);
+        ProductInfoFrame.add(topPanel, BorderLayout.NORTH);
+        ProductInfoFrame.add(bottomPanel, BorderLayout.SOUTH);
 
         categoryComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -201,9 +198,69 @@ public class GUIWestminsterShopping {
             }
         });
 
-        // Initializing the frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 800);
-        frame.setVisible(true);
+        // Initializing the ProductInfoFrame
+        ProductInfoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ProductInfoFrame.setSize(800, 800);
+        ProductInfoFrame.setVisible(true);
     }
+
+    public static void main(String[] args) {
+
+        WestminsterShoppingManager.load_products();
+
+        JFrame MainFrame = new JFrame("Westminster Shopping Centre");
+
+        JPanel MainPanel = new JPanel(new GridLayout(0, 1));
+
+        JPanel bottomPanel = new JPanel(new GridLayout(0, 1));
+
+        for (Product item : WestminsterShoppingManager.list_of_products){
+            if (productId == item.getProduct_ID()){
+                if (item instanceof Electronics){
+                    JLabel SelectedProductLabel = new JLabel("Select Product - Details ");
+                    JLabel ProductIDLabel = new JLabel("Product ID : " + item.getProduct_ID());
+                    JLabel CategoryLabel = new JLabel("Category : Electronics");
+                    JLabel NameLabel = new JLabel("Name : " + item.getProduct_name());
+                    JLabel BrandLabel = new JLabel("Brand : " + ((Electronics) item).getProduct_brand());
+                    JLabel WarrantyLabel = new JLabel("Warranty : " + ((Electronics) item).getProduct_warranty());
+                    JLabel ItemsAvailableLabel = new JLabel("Items Available : " + item.getNo_available_products());
+
+                    bottomPanel.add(SelectedProductLabel);
+                    bottomPanel.add(ProductIDLabel);
+                    bottomPanel.add(CategoryLabel);
+                    bottomPanel.add(NameLabel);
+                    bottomPanel.add(BrandLabel);
+                    bottomPanel.add(WarrantyLabel);
+                    bottomPanel.add(ItemsAvailableLabel);
+
+                } else if (item instanceof Clothing) {
+                    JLabel SelectedProductLabel = new JLabel("Select Product - Details ");
+                    JLabel ProductIDLabel = new JLabel("Product ID : " + item.getProduct_ID());
+                    JLabel CategoryLabel = new JLabel("Category : Clothing ");
+                    JLabel NameLabel = new JLabel("Name : " + item.getProduct_name());
+                    JLabel SizeLabel = new JLabel("Size : " + ((Clothing) item).getProduct_size());
+                    JLabel ColourLabel = new JLabel("Colour : " + ((Clothing) item).getProduct_color());
+                    JLabel ItemsAvailableLabel = new JLabel("Items Available : " + item.getNo_available_products());
+
+                    bottomPanel.add(SelectedProductLabel);
+                    bottomPanel.add(ProductIDLabel);
+                    bottomPanel.add(CategoryLabel);
+                    bottomPanel.add(NameLabel);
+                    bottomPanel.add(SizeLabel);
+                    bottomPanel.add(ColourLabel);
+                    bottomPanel.add(ItemsAvailableLabel);
+
+                }
+            }
+        }
+
+        MainPanel.add(bottomPanel);
+
+        MainFrame.add(MainPanel);
+
+        MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        MainFrame.setSize(300, 400);
+        MainFrame.setVisible(true);
+    }
+
 }
