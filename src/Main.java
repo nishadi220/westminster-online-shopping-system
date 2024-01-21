@@ -60,6 +60,7 @@ public class Main {
         System.out.println("3. Print the list of the products");
         System.out.println("4. Save in a file");
         System.out.println("5. Load from file");
+        System.out.println("6. Exit");
         System.out.println();
 
         int answer = manager.errorHandlerInt("Enter your option                                             : ");
@@ -140,6 +141,7 @@ public class Main {
                             User.users.add(newUser);
 
                             System.out.println("Registration completed successfully !");
+                            GUIWestminsterShopping.main(null);
 
                             break;
 

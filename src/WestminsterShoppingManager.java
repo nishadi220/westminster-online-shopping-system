@@ -164,7 +164,6 @@ public class WestminsterShoppingManager implements ShoppingManager {
         Main.ManagerMenu();
     }
 
-
     static public void load_products() {
         try (ObjectInputStream in = new ObjectInputStream(Files.newInputStream(Path.of(Data_File)))) {
             list_of_products = (ArrayList<Product>) in.readObject();

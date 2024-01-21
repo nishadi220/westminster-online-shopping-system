@@ -39,7 +39,6 @@ public class GUIWestminsterShopping {
 
             shoppingCart = shoppingCart();
             shoppingCart.setVisible(true);
-
         });
 
         JPanel buttonPanel = new JPanel();
@@ -101,8 +100,6 @@ public class GUIWestminsterShopping {
     }
 
     private void updateTable(DefaultTableModel model, String selectedCategory, JTable table) {
-        // Implementation unchanged
-
         ArrayList<Object[]> tableDataList = new ArrayList<>();
 
         for (Product product : WestminsterShoppingManager.list_of_products) {
@@ -110,11 +107,6 @@ public class GUIWestminsterShopping {
             String category = null;
             String information = null;
             Object[] rowData;
-
-            String productBrand = ((Electronics) product).getProduct_brand();
-            int productWarranty = ((Electronics) product).getProduct_warranty();
-            String productSize = ((Clothing) product).getProduct_size();
-            String productColor = ((Clothing) product).getProduct_color();
 
             switch (selectedCategory) {
                 case "All":
@@ -125,9 +117,9 @@ public class GUIWestminsterShopping {
                     }
 
                     if (product instanceof Electronics) {
-                        information = productBrand + ", " + productWarranty;
+                        information = ((Electronics) product).getProduct_brand() + ", " + ((Electronics) product).getProduct_warranty();
                     } else if (product instanceof Clothing) {
-                        information = productSize + ", " + productColor;
+                        information = ((Clothing) product).getProduct_size() + ", " + ((Clothing) product).getProduct_color();
                     }
                     break;
 
@@ -136,7 +128,7 @@ public class GUIWestminsterShopping {
                         continue;
                     }
                     category = "Electronics";
-                    information = productBrand + ", " + productWarranty;
+                    information = ((Electronics) product).getProduct_brand() + ", " + ((Electronics) product).getProduct_warranty();
                     break;
 
                 case "Clothing":
@@ -144,7 +136,7 @@ public class GUIWestminsterShopping {
                         continue;
                     }
                     category = "Clothes";
-                    information = productSize + ", " + productColor;
+                    information = ((Clothing) product).getProduct_size() + ", " + ((Clothing) product).getProduct_color();
                     break;
 
                 default:
