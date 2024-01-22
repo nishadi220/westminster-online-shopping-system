@@ -111,7 +111,7 @@ public class Main {
             switch (Answer){
                 case 1 :
 
-                    System.out.println("Are you a registered / unregistered cusstomer ( 1 or 2 ) : ");
+                    System.out.println("Are you a registered / unregistered customer ( 1 - Registered/ 2 - Unregistered ) : ");
                     int answer = sc.nextInt();
 
                     switch (answer){
@@ -128,8 +128,10 @@ public class Main {
                                 else{
                                     System.out.println("Log in information invalid");
                                 }
-                                break;
+
                             }
+                            GUIWestminsterShopping.main(null);
+                            break;
 
                         case 2 :
                             System.out.print("Enter Username : ");

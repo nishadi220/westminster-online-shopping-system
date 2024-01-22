@@ -109,6 +109,8 @@ public class WestminsterShoppingManager implements ShoppingManager {
                         } else {
                             System.out.println("Invalid response.Try again !");
                         }
+
+                        System.out.println("Total no. of products : " + list_of_products.size());
                         break;
                     }
                 }

@@ -5,7 +5,6 @@ public class User {
     private String username ;
     private String password ;
     private ArrayList<Product> products = new ArrayList<Product>();
-
     static public ArrayList<User> users = new ArrayList<User>();
 
     public User(String username, String password, ArrayList<Product> products) {
@@ -39,6 +38,5 @@ public class User {
     }
 
     public static void setHistory(Product product) {
-        //TODO : create functionality
     }
 }
